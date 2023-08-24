@@ -1,0 +1,12 @@
+старт\стоп (Revolver)
+reStart \ reStop
+
+кодировка консоль
+terminal
+chcp 65001
+sbt
+
+
+java.lang.StackOverflowError:
+sbt - VM parameters
+-server -Xss10M

@@ -1,0 +1,9 @@
+.navbar-nav > .nav-item:not(:last-child) {
+    margin-right: 4px;
+}
+
+.navbar-nav .btn-primary {
+    color: white;
+}
+
+

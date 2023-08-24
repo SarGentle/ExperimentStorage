@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка данных</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const uploadButton = document.getElementById("uploadButton");
+    const uploadForm = document.getElementById("uploadForm");
+
+    uploadButton.addEventListener("click", async function () {
+      const experimentName = document.getElementById("experimentName").value;
+      const fileName = document.getElementById("fileName").value;
+      const fileType = document.getElementById("fileType").value;
+      const fileParsed = document.getElementById("fileParsed").value;
+      const fileInput = document.getElementById("file");
+
+      const json = {
+        fileName: fileName,
+        fileType: fileType,
+        parsed: fileParsed,
+        experiment: experimentName
+      };
+
+      const formData = new FormData();
+      const boundary = "WebAppBoundary";
+      formData.append(
+        "request",
+        new Blob([JSON.stringify(json)], {type: "application/json"})
+      );
+      formData.append("file", fileInput.files[0], fileName);
+
+      // const headers = new Headers({
+      //   "Content-Type": `multipart/form-data; boundary=${boundary}`
+      // });
+
+      const response = await fetch("/file/setFile", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        // Обработка успешной загрузки
+        console.log("File uploaded successfully");
+      } else {
+        // Обработка ошибок
+        console.error("File upload failed");
+      }
+    });
+  });
+</script>
+<div class="container-fluid p-0"> <!-- Измените класс контейнера на container-fluid и p-0 -->
+    <div class="col-md-1 bg-secondary"></div>
+    <header class="bg-dark text-white"> <!-- Измените стиль шапки -->
+        <div class="container d-flex justify-content-center">
+            <nav class="navbar navbar-expand navbar-dark bg-dark"> <!-- Измените стиль навигации -->
+                <a class="navbar-brand" href="/">Хранилище экспериментальных данных</a>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary mr-2 text-white" href="/index">Главная страница</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary mr-2 text-white" href="/upload">Загрузка данных</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary mr-2 text-white" href="/download">Скачивание данных</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="experimentName">Experiment Name:</label>
+            <input type="text" class="form-control" id="experimentName" name="experimentName">
+        </div>
+        <div class="form-group">
+            <label for="fileName">File Name:</label>
+            <input type="text" class="form-control" id="fileName" name="fileName">
+        </div>
+        <div class="form-group">
+            <label for="fileParsed">file Parsed:</label>
+            <input type="text" class="form-control" id="fileParsed" name="fileParsed">
+        </div>
+        <div class="form-group">
+            <label for="fileType">file Type:</label>
+            <input type="text" class="form-control" id="fileType" name="fileType">
+        </div>
+        <div class="form-group">
+            <label for="file">File:</label>
+            <input type="file" class="form-control-file" id="file" name="file">
+        </div>
+        <button type="button" id="uploadButton" class="btn btn-primary">Upload</button>
+    </form>
+
+    <!-- ... (Остальное содержимое) -->
+
+    <footer class="bg-dark text-white mt-auto fixed-bottom sticky-footer"> <!-- Измените классы подвала -->
+        <hr class="bg-white">
+        <p class="text-center">Хранилище экспериментальных данных &copy; 2023</p>
+    </footer>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

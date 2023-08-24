@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/styles/style.css">
+</head>
+<body class="bg-light"> <!-- Добавьте класс фона на тело страницы -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const loginButton = document.getElementById("loginButton");
+    const loginInput = document.getElementById("login");
+    const passwordInput = document.getElementById("password");
+
+    loginButton.addEventListener("click", async function () {
+      const login = loginInput.value;
+      const password = passwordInput.value;
+
+      const response = await fetch("/auth/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ login: login, password: password })
+      });
+
+      if (response.ok) {
+        // Перенаправляем пользователя на страницу main.html
+        window.location.href = "/main";
+      } else {
+        // Обработка ошибок, например, показ сообщения пользователю
+        console.error("Authorization failed");
+      }
+    });
+  });
+</script>
+<div class="container-fluid p-0"> <!-- Измените класс контейнера на container-fluid и p-0 -->
+    <header class="bg-dark text-white">
+        <div class="container d-flex justify-content-center">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="/">Хранилище экспериментальных данных</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Меню в середине страницы -->
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="vh-100 d-flex align-items-center justify-content-center">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                         class="img-fluid" alt="Sample image">
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <form action="/auth/post" method="post">
+                        <!-- Login input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="login">Login</label>
+                            <input type="login" id="login" class="form-control form-control-lg"
+                                   placeholder="Enter a valid email address" />
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input type="password" id="password" class="form-control form-control-lg"
+                                   placeholder="Enter password" />
+                        </div>
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button id="loginButton" type="button" class="btn btn-primary btn-lg"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">Нет аккаунта? <a href="#!"
+                                                                                              class="link-danger">Регистрация</a></p>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ... (Остальное содержимое) -->
+
+    <footer class="bg-dark text-white mt-auto fixed-bottom sticky-footer"> <!-- Измените классы подвала -->
+        <hr class="bg-white">
+        <p class="text-center">Хранилище экспериментальных данных &copy; 2023</p>
+    </footer>
+</div>
+<script src="/static/scripts/jquery.min.js"></script>
+<script src="/static/scripts/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+-Djdk.tls.disabledAlgorithms=TLSv1.3
+-Djdk.http.auth.tunneling.disabledSchemes=""
+-Xss24m
+-Xmx4g
