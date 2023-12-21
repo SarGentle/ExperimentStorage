@@ -1,8 +1,6 @@
 package ru.nir.testproject.services.tools.config
 
-import io.circe.generic.JsonCodec
 
-@JsonCodec
 case class ModeConfig(
     testMode: Option[String]
 )

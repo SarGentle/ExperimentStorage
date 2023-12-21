@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <title>Скачивание данных</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .form-container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .gray-bg {
+            background-color: #f8f9fa; /* Светло-серый цвет фона */
+        }
+        .rounded-pill {
+            border-radius: 50px;
+        }
+    </style>
 </head>
 <body>
-<div class="container-fluid p-0"> <!-- Измените класс контейнера на container-fluid и p-0 -->
-    <div class="col-md-1 bg-secondary"></div>
-    <header class="bg-dark text-white"> <!-- Измените стиль шапки -->
+<div class="container-fluid p-0">
+    <header class="bg-dark text-white">
         <div class="container d-flex justify-content-center">
-            <nav class="navbar navbar-expand navbar-dark bg-dark"> <!-- Измените стиль навигации -->
+            <nav class="navbar navbar-expand navbar-dark bg-dark">
                 <a class="navbar-brand" href="/">Хранилище экспериментальных данных</a>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -27,16 +38,59 @@
         </div>
     </header>
 
-    <div class="col-md-1 bg-secondary"></div>
+    <div class="container mt-4">
+        <h1 class="text-center mt-4 mb-4 font-weight-bold">Скачивание данных (файлов) из хранилища данных</h1>
+        <div class="gray-bg">
+            <div class="form-container container mt-5">
+                <form>
+                    <div class="form-group">
+                        <label for="experimentName">Имя эксперимента:</label>
+                        <input type="text" class="form-control rounded-pill" id="experimentName">
+                    </div>
+                    <div class="form-group">
+                        <label for="organization">Организация:</label>
+                        <input type="text" class="form-control rounded-pill" id="organization">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileType">Расширение файлов данных:</label>
+                        <select class="form-control rounded-pill" id="fileType" name="fileType">
+                            <option value="csv">CSV</option>
+                            <option value="html">HTML</option>
+                            <option value="sql">SQL</option>
+                            <option value="edm">EDM</option>
+                            <option value="jpg">JPG</option>
+                            <option value="png">PNG</option>
+                            <option value="jpeg">JPEG</option>
+                            <option value="mp4">MP4</option>
+                            <option value="mp3">MP3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Автор эксперимента:</label>
+                        <input type="text" class="form-control rounded-pill" id="author">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="searchButton">Поиск</button>
+                </form>
+            </div>
+        </div>
+        <div class="container-fluid p-0">
+                <h4>Результаты поиска</h4>
+                <div id="searchResults">
+                    <!-- Заглушечный элемент для результатов поиска -->
+                    <p>Здесь будут результаты поиска...</p>
+                </div>
+        </div>
+    </div>
 
-    <!-- ... (Остальное содержимое) -->
-
-    <footer class="bg-dark text-white mt-auto fixed-bottom sticky-footer"> <!-- Измените классы подвала -->
+    <footer class="bg-dark text-white mt-auto fixed-bottom sticky-footer">
         <hr class="bg-white">
         <p class="text-center">Хранилище экспериментальных данных &copy; 2023</p>
     </footer>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  // #searchResults
+</script>
 </body>
 </html>

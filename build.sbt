@@ -5,7 +5,7 @@ organization := "ru.nir"
 version := "1.0.0"
 
 val defaultSettings: Seq[Setting[_]] = Seq(
-  scalaVersion := "2.13.8",
+  scalaVersion := "3.3.0",
   scalacOptions := Seq(
     "-feature",
     "-language:higherKinds",
@@ -17,11 +17,6 @@ val defaultSettings: Seq[Setting[_]] = Seq(
     "-Xlint:_,-byname-implicit"
   ),
   Compile / packageDoc / publishArtifact := false,
-  ThisBuild / scalafmtOnCompile := true,
-  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % betterMonadicForVersion),
-  addCompilerPlugin(
-    "org.typelevel" %% "kind-projector" % kindProjectorVersion cross CrossVersion.full
-  )
 )
 
 val projectSettings: Seq[Setting[_]] = Seq(
@@ -32,9 +27,10 @@ val projectSettings: Seq[Setting[_]] = Seq(
   makeBatScripts := Seq.empty
 )
 
-lazy val zioVersion              = "2.0.9"
-lazy val zioCatsVersion          = "23.0.0.2"
-lazy val zioKafkaVersion         = "2.1.1"
+lazy val zioVersion              = "2.0.15"
+lazy val zioCatsVersion          = "23.0.0.8"
+lazy val zioConfigVersion        = "4.0.0-RC12"
+lazy val zioKafkaVersion         = "2.4.1"
 lazy val catsVersion             = "2.9.0"
 lazy val catsEffectVersion       = "3.4.4"
 lazy val doobieVersion           = "1.0.0-RC2"
@@ -53,15 +49,17 @@ lazy val zio = Seq(
   "dev.zio" %% "zio"              % zioVersion,
   "dev.zio" %% "zio-streams"      % zioVersion,
   "dev.zio" %% "zio-kafka"        % zioKafkaVersion,
-  "dev.zio" %% "zio-interop-cats" % zioCatsVersion
+  "dev.zio" %% "zio-interop-cats" % zioCatsVersion,
+  "dev.zio" %% "zio-config"           % zioConfigVersion,
+  "dev.zio" %% "zio-config-magnolia"  % zioConfigVersion,
+  "dev.zio" %% "zio-config-typesafe" % zioConfigVersion,
 )
 
 lazy val circe = Seq(
   "io.circe" %% "circe-generic"        % circeVersion,
   "io.circe" %% "circe-literal"        % circeVersion,
   "io.circe" %% "circe-parser"         % circeVersion,
-  "io.circe" %% "circe-core"           % circeVersion,
-  "io.circe" %% "circe-generic-extras" % circeVersion
+  "io.circe" %% "circe-core"           % circeVersion
 )
 
 lazy val doobie = Seq(
@@ -81,7 +79,6 @@ lazy val tests = Seq(
 
 val dependenciesSettings = Seq(
   libraryDependencies ++= Seq(
-    "com.github.pureconfig"         %% "pureconfig"                    % pureconfigVersion,
     "org.typelevel"                 %% "cats-effect"                   % catsEffectVersion,
     "org.typelevel"                 %% "cats-effect-kernel"            % catsEffectVersion,
     "org.typelevel"                 %% "cats-effect-std"               % catsEffectVersion,

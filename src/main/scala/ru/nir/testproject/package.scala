@@ -2,14 +2,14 @@ package ru.nir
 
 import ru.nir.testproject.services.logic.storageservices.experiments.ExperimentService
 import ru.nir.testproject.services.logic.storageservices.files.FileService
-import ru.nir.testproject.services.tools.config.AppConfig
 import ru.nir.testproject.services.tools.database.ExperimentDatabase
+import ru.nir.testproject.services.tools.kafka.KafkaService
 import zio.{RIO, Scope}
 
 package object testproject {
 
   type AppEnv =
-    Scope with ExperimentService with FileService with ExperimentDatabase with AppConfig
+    Scope with ExperimentService with FileService with ExperimentDatabase with KafkaService
 
   type AppTask[A] = RIO[AppEnv, A]
 }

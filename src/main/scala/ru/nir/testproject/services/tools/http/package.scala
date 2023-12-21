@@ -23,8 +23,8 @@ package object http {
   ) = {
 
     BlazeServerBuilder[AppTask]
-      .withIdleTimeout(apiConfig.timeout)
-      .withResponseHeaderTimeout(apiConfig.timeout.-(10 seconds))
+      .withIdleTimeout(apiConfig.timeoutSec seconds)
+      .withResponseHeaderTimeout((apiConfig.timeoutSec - 10) seconds)
       .bindHttp(apiConfig.port, apiConfig.host)
       .withHttpApp(cors(httpApp))
       .serve

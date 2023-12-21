@@ -1,7 +1,7 @@
 package ru.nir.testproject.services.tools.database
 
 import ru.nir.testproject.model.database.{Experiment, FileInstance, UserDatabase}
-import ru.nir.testproject.services.tools.config.AppConfig
+import ru.nir.testproject.services.tools.config
 import ru.nir.testproject.services.tools.database
 import zio.{RIO, Task, ZIO, ZLayer}
 
@@ -46,7 +46,7 @@ object ExperimentDatabaseLive {
   def layer =
     ZLayer {
       for {
-        config        <- ZIO.service[AppConfig]
+        config        <- config.getAppConfig
         postgrTrnsctr <- database.managedTransactor(config.postgres, config.app.appName)
       } yield new ExperimentDatabaseImpl(postgrTrnsctr)
     }

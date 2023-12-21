@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <title>Загрузка данных</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .form-container {
+
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .gray-bg {
+            background-color: #f8f9fa; /* Светло-серый цвет фона */
+        }
+    </style>
 </head>
 <body>
 <script>
@@ -52,11 +62,10 @@
     });
   });
 </script>
-<div class="container-fluid p-0"> <!-- Измените класс контейнера на container-fluid и p-0 -->
-    <div class="col-md-1 bg-secondary"></div>
-    <header class="bg-dark text-white"> <!-- Измените стиль шапки -->
+<div class="container-fluid p-0">
+    <header class="bg-dark text-white">
         <div class="container d-flex justify-content-center">
-            <nav class="navbar navbar-expand navbar-dark bg-dark"> <!-- Измените стиль навигации -->
+            <nav class="navbar navbar-expand navbar-dark bg-dark">
                 <a class="navbar-brand" href="/">Хранилище экспериментальных данных</a>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -72,34 +81,47 @@
             </nav>
         </div>
     </header>
+    <h1 class="text-center mt-4 mb-4 font-weight-bold">Загрузка данных (файлов) в хранилище данных</h1>
+    <div class="gray-bg">
+        <div class="form-container container mt-5">
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="experimentName">Experiment Name:</label>
+                    <input type="text" class="form-control rounded-pill" id="experimentName" name="experimentName">
+                </div>
+                <div class="form-group">
+                    <label for="fileName">File Name:</label>
+                    <input type="text" class="form-control rounded-pill" id="fileName" name="fileName">
+                </div>
+                <div class="form-group">
+                    <label for="fileParsed">File Parsed:</label>
+                    <input type="text" class="form-control rounded-pill" id="fileParsed" name="fileParsed">
+                </div>
+                <div class="form-group">
+                    <label for="fileType">File Type:</label>
+                    <select class="form-control rounded-pill" id="fileType" name="fileType">
+                        <option value="csv">CSV</option>
+                        <option value="html">HTML</option>
+                        <option value="sql">SQL</option>
+                        <option value="edm">EDM</option>
+                        <option value="jpg">JPG</option>
+                        <option value="png">PNG</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="mp4">MP4</option>
+                        <option value="mp3">MP3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="file">File:</label>
+                    <input type="file" class="form-control-file" id="file" name="file">
+                </div>
+                <button type="button" id="uploadButton" class="btn btn-primary">Upload</button>
+            </form>
+        </div>
+    </div>
 
-    <form id="uploadForm" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="experimentName">Experiment Name:</label>
-            <input type="text" class="form-control" id="experimentName" name="experimentName">
-        </div>
-        <div class="form-group">
-            <label for="fileName">File Name:</label>
-            <input type="text" class="form-control" id="fileName" name="fileName">
-        </div>
-        <div class="form-group">
-            <label for="fileParsed">file Parsed:</label>
-            <input type="text" class="form-control" id="fileParsed" name="fileParsed">
-        </div>
-        <div class="form-group">
-            <label for="fileType">file Type:</label>
-            <input type="text" class="form-control" id="fileType" name="fileType">
-        </div>
-        <div class="form-group">
-            <label for="file">File:</label>
-            <input type="file" class="form-control-file" id="file" name="file">
-        </div>
-        <button type="button" id="uploadButton" class="btn btn-primary">Upload</button>
-    </form>
 
-    <!-- ... (Остальное содержимое) -->
-
-    <footer class="bg-dark text-white mt-auto fixed-bottom sticky-footer"> <!-- Измените классы подвала -->
+    <footer class="bg-dark text-white mt-auto fixed-bottom sticky-footer">
         <hr class="bg-white">
         <p class="text-center">Хранилище экспериментальных данных &copy; 2023</p>
     </footer>

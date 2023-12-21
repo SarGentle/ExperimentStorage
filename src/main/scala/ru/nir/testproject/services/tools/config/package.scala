@@ -1,34 +1,19 @@
 package ru.nir.testproject.services.tools
 
-import pureconfig.ConfigSource
-import pureconfig.generic.auto._
-// import zio.kafka.admin.AdminClientSettings
-import zio.{Layer, URIO, ZIO, ZLayer}
+import zio.config.*
+import zio.config.magnolia.*
+import typesafe.TypesafeConfigProvider
 
 package object config {
 
-  val getAppConfig: URIO[AppConfig, AppConfig] = ZIO.service
+  private val appConfig = deriveConfig[AppConfig]
 
-  val getModeParams: URIO[ModeConfig, ModeConfig] = ZIO.service
+  val getAppConfig = read(
+    appConfig from TypesafeConfigProvider.fromTypesafeConfig(com.typesafe.config.ConfigFactory.load())
+  )
 
-  val getPostgresConfig: URIO[AppConfig, DatabaseConfig] = getAppConfig.map(_.postgres)
-
-  val postgresConfigLive: ZLayer[AppConfig, Throwable, DatabaseConfig] = ZLayer(getAppConfig.map(_.postgres))
-
-  val modeParams: ZLayer[AppConfig, Throwable, ModeConfig] = ZLayer(getAppConfig.map(_.modeParams))
-
-  val serviceConfig: ZLayer[AppConfig, Throwable, ServiceConfig] = ZLayer(getAppConfig.map(_.service))
-
-  val live: Layer[Throwable, AppConfig] = {
-    ZLayer(
-      ZIO
-        .fromEither(ConfigSource.default.load[AppConfig])
-        .mapError(failures =>
-          new IllegalStateException(
-            s"Error loading configuration: $failures"
-          )
-        )
-    )
-  }
-
+  val getModeParams     = getAppConfig.map(_.modeParams)
+  val getPostgresConfig = getAppConfig.map(_.postgres)
+  val getKafkaConfig    = getAppConfig.map(_.kafka)
+  val getApiEndpoint    = getAppConfig.map(_.api)
 }
