@@ -1,6 +1,7 @@
 package ru.nir.testproject.services.tools.database
 
 import ru.nir.testproject.model.database.{Experiment, FileInstance, UserDatabase}
+import ru.nir.testproject.model.servicesdto.RegisterNewUserReq
 import ru.nir.testproject.services.tools.config
 import ru.nir.testproject.services.tools.database
 import zio.{RIO, Task, ZIO, ZLayer}
@@ -15,6 +16,7 @@ trait ExperimentDatabase {
   def selectExperimentByName(experimentName: String): Task[Option[Experiment]]
 
   def getUserByLoginAndPassword(login: String, password: String): Task[Option[UserDatabase]]
+  def setNewUser(newUser: RegisterNewUserReq): Task[Int]
 }
 
 object ExperimentDatabase {
@@ -37,9 +39,12 @@ object ExperimentDatabase {
   def selectExperimentByName(experimentName: String): RIO[ExperimentDatabase, Option[Experiment]] = {
     ZIO.environmentWithZIO[ExperimentDatabase](_.get.selectExperimentByName(experimentName))
   }
+  
   def getUserByLoginAndPassword(login: String, password: String): RIO[ExperimentDatabase, Option[UserDatabase]] = {
     ZIO.environmentWithZIO[ExperimentDatabase](_.get.getUserByLoginAndPassword(login, password))
   }
+  def setNewUser(newUser: RegisterNewUserReq): RIO[ExperimentDatabase, Int] =
+    ZIO.environmentWithZIO[ExperimentDatabase](_.get.setNewUser(newUser))
 }
 
 object ExperimentDatabaseLive {

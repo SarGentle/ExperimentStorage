@@ -3,6 +3,7 @@ package ru.nir.testproject
 import ru.nir.testproject.services.tools.{config, http, kafka}
 import ru.nir.testproject.services.logic.storageservices.experiments.ExperimentServiceLive
 import ru.nir.testproject.services.logic.storageservices.files.FileServiceLive
+import ru.nir.testproject.services.logic.storageservices.user.UserServiceLive
 import ru.nir.testproject.services.tools.database.ExperimentDatabaseLive
 import ru.nir.testproject.services.tools.kafka.KafkaServiceLive
 import zio.{ExitCode, Scope, ZIO, ZIOAppArgs}
@@ -26,7 +27,8 @@ object Main extends zio.ZIOAppDefault {
         KafkaServiceLive.layer,
         ExperimentDatabaseLive.layer,
         ExperimentServiceLive.layer,
-        FileServiceLive.layer
+        FileServiceLive.layer,
+        UserServiceLive.layer
       )
       .orDie
 }

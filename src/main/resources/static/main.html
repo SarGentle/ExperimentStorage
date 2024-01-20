@@ -6,37 +6,36 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container-fluid p-0"> <!-- Измените класс контейнера на container-fluid и p-0 -->
+<div class="container-fluid p-0">
     <div class="col-md-1 bg-secondary"></div>
-    <header class="bg-dark text-white"> <!-- Измените стиль шапки -->
+    <header class="bg-dark text-white">
         <div class="container d-flex justify-content-center">
-        <nav class="navbar navbar-expand navbar-dark bg-dark"> <!-- Измените стиль навигации -->
-            <a class="navbar-brand" href="/">Хранилище экспериментальных данных</a>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-primary mr-2 text-white" href="/index">Главная страница</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-primary mr-2 text-white" href="/upload">Загрузка данных</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-primary mr-2 text-white" href="/download">Скачивание данных</a>
-                </li>
-            </ul>
-        </nav>
+            <nav class="navbar navbar-expand navbar-dark bg-dark">
+                <a class="navbar-brand" href="/">Хранилище экспериментальных данных</a>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary mr-2 text-white" href="/index">Главная страница</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary mr-2 text-white" href="/upload">Загрузка данных</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary mr-2 text-white" href="/download">Скачивание данных</a>
+                    </li>
+                </ul>
+                <!-- Кнопка "Профиль" в красном цвете -->
+                <button class="btn btn-danger ml-auto">Профиль</button>
+            </nav>
         </div>
     </header>
 
     <div class="container text-center mt-5">
-        <!-- Фраза "Вы авторизованы как root" с использованием классов Bootstrap для стилей -->
-        <h1 class="font-weight-bold text-success">Вы авторизованы как root</h1>
+        <h1 class="font-weight-bold text-success">Вы успешно авторизованы</h1>
     </div>
 
-    <!-- ... (Остальное содержимое) -->
-
-    <footer class="bg-dark text-white mt-auto fixed-bottom sticky-footer"> <!-- Измените классы подвала -->
+    <footer class="bg-dark text-white mt-auto fixed-bottom sticky-footer">
         <hr class="bg-white">
-        <p class="text-center">Хранилище экспериментальных данных &copy; 2023</p>
+        <p class="text-center">Хранилище экспериментальных данных &copy; 2022-2024</p>
     </footer>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

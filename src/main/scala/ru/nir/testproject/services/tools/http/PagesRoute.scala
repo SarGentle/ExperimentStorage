@@ -18,5 +18,11 @@ object PagesRoute extends Http4sDsl[AppTask] {
 
     case r @ GET -> Root / "download" =>
       StaticFile.fromResource("/static/download.html", Some(r)).getOrElseF(NotFound())
+
+    case r @ GET -> Root / "register" =>
+      StaticFile.fromResource("/static/register.html", Some(r)).getOrElseF(NotFound())
+
+    case r @ GET -> Root / "profile" =>
+    StaticFile.fromResource("/static/profile.html", Some(r)).getOrElseF(NotFound())
   }
 }

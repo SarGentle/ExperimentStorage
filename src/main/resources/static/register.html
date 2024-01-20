@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация пользователя</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            background-color: #343a40;
+            padding: 10px 0;
+        }
+
+        header a {
+            color: white;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: lightblue;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #343a40;
+            padding: 10px 0;
+            margin-top: auto;
+            position: fixed;
+            bottom: 0;
+        }
+
+        footer p {
+            color: white;
+        }
+        .form-center {
+            display:flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const registerButton = document.getElementById("registerButton");
+
+    registerButton.addEventListener("click", async function () {
+      const login = document.getElementById("login").value;
+      const password = document.getElementById("password").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const organization = document.getElementById("organization").value;
+      const position = document.getElementById("position").value;
+      const accessLevel = document.getElementById("accessLevel").value;
+      const avatar = document.getElementById("avatar");
+
+      const json = {
+        login: login,
+        password: password,
+        email: email,
+        phone: phone,
+        organization: organization,
+        position: position,
+        accessLevel: accessLevel
+      };
+
+      const formData = new FormData();
+      const boundary = "WebAppBoundary";
+      formData.append(
+        "request",
+        new Blob([JSON.stringify(json)], {type: "application/json"})
+      );
+      formData.append("file", avatar.files[0], login);
+
+      const response = await fetch("/auth/register", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        // Обработка успешной загрузки
+        console.log("File uploaded successfully");
+      } else {
+        // Обработка ошибок
+        console.error("File upload failed");
+      }
+    });
+  });
+</script>
+<div class="container-fluid p-0">
+<header class="bg-dark text-white">
+    <div class="container d-flex justify-content-center">
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="/index">Хранилище экспериментальных данных</a>
+        </nav>
+    </div>
+</header>
+<div class="form-center">
+    <form id="registrationForm">
+        <label for="login">Логин:</label>
+        <input type="text" id="login" name="login" required>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="email">Электронная почта:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Номер телефона:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="organization">Организация:</label>
+        <select id="organization" name="organization" required>
+            <option value="MEPHI">МИФИ</option>
+            <option value="TestLab">Тестовая лаборатория</option>
+        </select>
+
+        <label for="position">Должность:</label>
+        <input type="text" id="position" name="position" required>
+
+        <label for="accessLevel">Уровень доступа:</label>
+        <input type="text" id="accessLevel" name="accessLevel" required>
+
+        <label for="avatar">Загрузить аватар:</label>
+        <input type="file" id="avatar" name="avatar" accept="image/*" onchange="previewAvatar(event)" required>
+        <img id="avatarPreview" src="#" alt="Avatar Preview" style="max-width: 100%; display: none;">
+
+        <button type="button" id ="registerButton" class="btn btn-primary btn-lg">Зарегистрироваться</button>
+    </form>
+</div>
+    <div class="form-center">
+        <p class="small fw-bold mt-2 pt-1 mb-0">Есть аккаунт? <a href="/index"
+                                                                 class="link-danger">Войти</a></p>
+    </div>
+    <footer class="bg-dark text-white mt-auto fixed-bottom sticky-footer">
+        <hr class="bg-white">
+        <p class="text-center">Хранилище экспериментальных данных &copy; 2022-2024</p>
+    </footer>
+
+</div>
+
+<script>
+  function previewAvatar(event) {
+    var input = event.target;
+    var preview = document.getElementById('avatarPreview');
+    var reader = new FileReader();
+
+    reader.onload = function () {
+      preview.src = reader.result;
+      preview.style.display = 'block';
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

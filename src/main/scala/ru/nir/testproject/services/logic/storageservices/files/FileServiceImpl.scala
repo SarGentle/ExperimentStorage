@@ -19,7 +19,7 @@ class FileServiceImpl(database: ExperimentDatabase) extends FileService {
       jsonInfoPart <-
         ZIO
           .fromOption(parts.find(_.name.contains("request")))
-          .mapError(_ => new Exception("Not found part with name=request"))
+          .mapError(_ => new Exception("Not found part with name=request by uploading file"))
       jsonInfo         <- jsonInfoPart.as[UploadFileDTOReq]
       fileName         <- ZIO.attempt(jsonInfo.fileName)
       experimentName   <- ZIO.attempt(jsonInfo.experiment)

@@ -38,6 +38,7 @@ package object http {
       "/file"       -> FileHandlerRoute.routes,
       "/experiment" -> ExperimentHandlerRoute.routes,
       "/auth"       -> AuthRoute.routes,
+      "kafka"       -> KafkaRoute.routes,
       ""            -> PagesRoute.routes
     ).orNotFound
   }
